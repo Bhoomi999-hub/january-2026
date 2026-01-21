@@ -1,0 +1,25 @@
+from collections import defaultdict,deque
+class Solution(object):
+    def verticalTraversal(self, root):
+        d=defaultdict(lambda:defaultdict(list))
+        q=deque([(0,0,root)])
+        while(len(q)>0):
+            level,vertical,node=q.popleft()
+            if (node.left):
+                q.append((level+1,vertical-1,node.left))
+            if (node.right):
+                q.append((level+1,vertical+1,node.right))
+            d[vertical][level].append(node.val)
+        ans=[]
+        for i in sorted(d):
+            temp=[]
+            for j in sorted(d[i]):
+                temp.extend(sorted(d[i][j]))
+            ans.append(temp)
+        return ans
+-------------o/p------------
+Input
+root =
+[3,9,20,null,null,15,7]
+Output
+[[9],[3,15],[20],[7]]
