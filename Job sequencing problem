@@ -1,0 +1,38 @@
+def jobScheduling(jobs):
+    n = len(jobs)
+    jobs.sort(key=lambda x: -x[2])  # sort by profit descending
+
+    maxDeadline = 0
+    for row in range(n):
+        maxDeadline = max(maxDeadline, jobs[row][1])
+
+    slots = [-1] * (maxDeadline + 1)
+    count = 0
+    max_profit = 0
+
+    for row in range(n):
+        for deadLine in range(jobs[row][1], 0, -1):
+            if slots[deadLine] == -1:
+                slots[deadLine] = jobs[row][0]
+                count += 1
+                max_profit += jobs[row][2]
+                break
+
+    return [count, max_profit]
+
+# ---- INPUT PART ----
+n = int(input("Enter number of jobs: "))
+jobs = []
+
+for _ in range(n):
+    job_id, deadline, profit = map(int, input().split())
+    jobs.append([job_id, deadline, profit])
+
+print(jobScheduling(jobs))
+#----o/p----
+Enter number of jobs: 4
+1 4 20
+2 1 10
+3 1 40
+4 1 30
+[2, 60]
