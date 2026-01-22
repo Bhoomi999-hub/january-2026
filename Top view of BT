@@ -1,0 +1,39 @@
+'''
+class Node:
+    def __init__(self, val):
+        self.data = val
+        self.left = None
+        self.right = None
+'''
+
+from collections import deque
+
+class Solution:
+    def topView(self, root):
+        d = {}
+        q = deque([(0, root)])   
+        
+        while len(q) > 0:
+            vertical, node = q.popleft()
+            
+            if vertical not in d:
+                d[vertical] = node.data
+            
+            if node.left:
+                q.append((vertical-1, node.left))   
+            
+            if node.right:
+                q.append((vertical+1, node.right))  
+        
+        res = []
+        for i in sorted(d):
+            res.append(d[i])
+        return res
+---------------o/p----------------
+Input: 
+root =
+1 2 3
+Your Output:
+[2, 1, 3]
+
+        
