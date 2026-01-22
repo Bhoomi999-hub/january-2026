@@ -10,25 +10,30 @@ from collections import deque
 
 class Solution:
     def topView(self, root):
+        if root is None:
+            return []
+
         d = {}
-        q = deque([(0, root)])   
-        
-        while len(q) > 0:
+        q = deque([(0, root)])
+
+        while q:
             vertical, node = q.popleft()
-            
+
             if vertical not in d:
                 d[vertical] = node.data
-            
+
             if node.left:
-                q.append((vertical-1, node.left))   
-            
+                q.append((vertical - 1, node.left))
+
             if node.right:
-                q.append((vertical+1, node.right))  
-        
+                q.append((vertical + 1, node.right))
+
         res = []
         for i in sorted(d):
             res.append(d[i])
+
         return res
+
 ---------------o/p----------------
 Input: 
 root =
