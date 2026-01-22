@@ -1,0 +1,37 @@
+'''
+class Node:
+    def __init__(self, val):
+        self.data = val
+        self.right = None
+        self.left = None
+'''
+
+from collections import deque
+
+class Solution:
+    def bottomView(self, root):
+        d = {}
+        q = deque([(0, root)])
+        
+        while q:
+            vertical, node = q.popleft()
+            
+            # Only difference from top view:
+            d[vertical] = node.data   # always overwrite
+            
+            if node.left:
+                q.append((vertical-1, node.left))
+            
+            if node.right:
+                q.append((vertical+1, node.right))
+        
+        res = []
+        for i in sorted(d):
+            res.append(d[i])
+        return res
+        --------o/p---------
+        Input: 
+root =
+1 2 3 4 5 N 6
+Your Output:
+[4, 2, 5, 3, 6]
