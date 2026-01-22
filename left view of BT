@@ -1,0 +1,41 @@
+''' 
+class Node:
+
+    def __init__(self, val):
+        self.data = val
+        self.right = None
+        self.left = None 
+'''
+
+from collections import deque
+
+class Solution:
+    def leftView(self, root):
+        if not root:
+            return []
+        
+        q = deque([root])
+        res = []
+        
+        while q:
+            size = len(q)
+            level = []
+            
+            for _ in range(size):
+                node = q.popleft()
+                level.append(node.data)
+                
+                if node.left:
+                    q.append(node.left)
+                if node.right:
+                    q.append(node.right)
+            
+            res.append(level[0])   # first element of level
+        
+        return res
+-----------o/p-----------
+Input: 
+root =
+1 2 3 4 5 N N
+Your Output:
+[1, 2, 4]
