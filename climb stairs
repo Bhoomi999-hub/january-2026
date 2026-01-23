@@ -1,0 +1,22 @@
+class Solution:
+    def climbStairs(self, n: int) -> int:
+        def countWays(ind,dp):
+            if(ind==0):
+                return 1
+            if(ind<0):
+                return 0
+            if(dp[ind]!=-1):
+                return dp[ind]
+            oneStep=countWays(ind-1,dp)
+            twoStep=countWays(ind-2,dp)
+            dp[ind]=oneStep+twoStep
+            return dp[ind]
+        dp=[-1]*(n+1)
+        return countWays(n,dp)
+      -----------o/p----------
+Input: n = 3
+Output: 3
+Explanation: There are three ways to climb to the top.
+1. 1 step + 1 step + 1 step
+2. 1 step + 2 steps
+3. 2 steps + 1 step
